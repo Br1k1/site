@@ -1,0 +1,348 @@
+/* Сгенерировано автоматически из data/site.json — правьте данные, а не этот файл */
+
+:root {
+  --primary: #ff7a18;
+  --accent: #ffa24d;
+  --blur: 20px;
+  --radius: 16px;
+
+  --bg-1: #0b0b0b;
+  --bg-2: #1c0f05;
+  --bg-3: #ff7a18;
+  --blob-primary: rgba(255, 122, 24, 0.45);
+  --blob-accent: rgba(255, 162, 77, 0.4);
+
+  --card-bg: rgba(255, 255, 255, 0.1);
+
+  --text: #f5f8ff;
+  --text-dim: rgba(245, 248, 255, 0.72);
+  --border: rgba(255, 255, 255, 0.18);
+  --card-bg-solid: rgba(15, 10, 4, 0.88);
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  --glow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  --item-bg: rgba(255, 255, 255, 0.05);
+  --item-bg-hover: rgba(255, 255, 255, 0.1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg-1);
+  overflow-x: hidden;
+}
+
+/* Живой фон: плавный градиент + размытые цветные пятна */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #0b0b0b, #1c0f05, #ff7a18);
+  background-size: 220% 220%;
+  animation: bg-shift 26s ease-in-out infinite;
+}
+
+.bg::before,
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+}
+
+.bg::before {
+  background: radial-gradient(circle at 22% 26%, var(--blob-primary), transparent 46%);
+  animation: blob-drift 22s ease-in-out infinite;
+}
+
+.bg::after {
+  background: radial-gradient(circle at 78% 72%, var(--blob-accent), transparent 46%);
+  animation: blob-drift 28s ease-in-out infinite reverse;
+}
+
+@keyframes bg-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4%, -3%, 0) scale(1.08); }
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(3.5rem, 9vw, 5.5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 6vw, 4rem);
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.card {
+  position: relative;
+  padding: clamp(1.25rem, 3.5vw, 1.9rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  box-shadow: var(--shadow), var(--glow);
+  backdrop-filter: blur(var(--blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
+  opacity: 0;
+  animation: card-in 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+/* Запасной вариант, если браузер не умеет backdrop-filter */
+@supports not ((-webkit-backdrop-filter: blur(4px)) or (backdrop-filter: blur(4px))) {
+  .card {
+    background: var(--card-bg-solid);
+  }
+}
+
+.card:hover {
+  border-color: rgba(255, 122, 24, 0.55);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28), var(--glow);
+}
+
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.15s; }
+.card:nth-child(3) { animation-delay: 0.25s; }
+.card:nth-child(4) { animation-delay: 0.35s; }
+.card:nth-child(5) { animation-delay: 0.45s; }
+.card:nth-child(6) { animation-delay: 0.55s; }
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Шапка */
+.header-card {
+  text-align: center;
+}
+
+.avatar {
+  display: block;
+  width: clamp(84px, 22vw, 128px);
+  height: clamp(84px, 22vw, 128px);
+  margin: 0 auto 1.1rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.name {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.7rem, 5.5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.title-text {
+  margin: 0;
+  font-size: clamp(1rem, 3vw, 1.15rem);
+  color: var(--text-dim);
+}
+
+.section-title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.15rem, 3.5vw, 1.35rem);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.about-text p {
+  margin: 0 0 0.85rem;
+  color: var(--text-dim);
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Ссылки */
+.links-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.75);
+  background: var(--item-bg);
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+.link-card:hover,
+.link-card:focus-visible {
+  background: var(--item-bg-hover);
+  border-color: rgba(255, 122, 24, 0.6);
+  transform: translateY(-2px);
+}
+
+.link-card .icon {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  color: var(--accent);
+}
+
+.link-title {
+  font-weight: 550;
+  word-break: break-word;
+}
+
+.link-host {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  word-break: break-all;
+}
+
+.link-text {
+  min-width: 0;
+}
+
+/* Контакты */
+.contacts-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.75);
+  background: var(--item-bg);
+}
+
+.contact-item .icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.contact-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.contact-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.contact-value {
+  display: block;
+  font-weight: 550;
+  word-break: break-word;
+}
+
+a.contact-value {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.contact-value:hover,
+a.contact-value:focus-visible {
+  color: var(--accent);
+}
+
+.copy-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  background: var(--item-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.copy-btn:hover,
+.copy-btn:focus-visible {
+  background: var(--item-bg-hover);
+  border-color: rgba(255, 162, 77, 0.6);
+  color: var(--accent);
+}
+
+.copy-btn.is-copied {
+  color: #ffa24d;
+  border-color: rgba(255, 162, 77, 0.7);
+}
+
+.copy-btn .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.copy-btn .icon-check {
+  display: none;
+}
+
+.copy-btn.is-copied .icon-copy {
+  display: none;
+}
+
+.copy-btn.is-copied .icon-check {
+  display: block;
+}
+
+/* Уважаем настройку «меньше движения» */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .card:hover,
+  .link-card:hover {
+    transform: none;
+  }
+}
